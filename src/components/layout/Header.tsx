@@ -6,37 +6,45 @@ import {
   Button,
   Box,
   IconButton,
-  Menu,
-  MenuItem,
   useMediaQuery,
   useTheme,
   Container,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Divider,
 } from '@mui/material';
 import {
   Menu as MenuIcon,
   Search as SearchIcon,
+  Home as HomeIcon,
+  Article as ArticleIcon,
+  Category as CategoryIcon,
+  Person as PersonIcon,
 } from '@mui/icons-material';
 import { Link, useLocation } from 'react-router-dom';
 
 const navItems = [
-  { label: '首页', path: '/' },
-  { label: '文章', path: '/articles' },
-  { label: '分类', path: '/categories' },
-  { label: '关于', path: '/about' },
+  { label: '首页', path: '/', icon: HomeIcon },
+  { label: '文章', path: '/articles', icon: ArticleIcon },
+  { label: '分类', path: '/categories', icon: CategoryIcon },
+  { label: '关于', path: '/about', icon: PersonIcon },
 ];
 
 const Header = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const location = useLocation();
-  const [mobileMenuAnchor, setMobileMenuAnchor] = useState<null | HTMLElement>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setMobileMenuAnchor(event.currentTarget);
+  const handleMobileMenuOpen = () => {
+    setMobileMenuOpen(true);
   };
 
   const handleMobileMenuClose = () => {
-    setMobileMenuAnchor(null);
+    setMobileMenuOpen(false);
   };
 
   const isActive = (path: string) => {
@@ -62,20 +70,22 @@ const Header = () => {
       <Container maxWidth="lg">
         <Toolbar sx={{ px: { xs: 0 } }}>
           {/* Logo */}
-          <Typography
-            variant="h5"
-            component={Link}
-            to="/"
-            sx={{
-              flexGrow: 1,
-              textDecoration: 'none',
-              color: 'primary.main',
-              fontWeight: 700,
-              letterSpacing: '-0.02em',
-            }}
-          >
-            Jiwac's Blog
-          </Typography>
+          <Box sx={{ flexGrow: 1 }}>
+            <Typography
+              variant="h5"
+              component={Link}
+              to="/"
+              sx={{
+                display: 'inline-block',
+                textDecoration: 'none',
+                color: 'primary.main',
+                fontWeight: 700,
+                letterSpacing: '-0.02em',
+              }}
+            >
+              Jiwac's Blog
+            </Typography>
+          </Box>
 
           {/* Desktop Navigation */}
           {!isMobile && (
@@ -125,56 +135,109 @@ const Header = () => {
               <SearchIcon />
             </IconButton>
 
-            {/* Mobile Menu */}
+            {/* Mobile Menu Button */}
             {isMobile && (
-              <>
-                <IconButton
-                  color="inherit"
-                  onClick={handleMobileMenuOpen}
-                  sx={{ 
-                    color: 'text.secondary', 
-                    ml: 0.5,
-                    borderRadius: 0,
-                  }}
-                >
-                  <MenuIcon />
-                </IconButton>
-                <Menu
-                  anchorEl={mobileMenuAnchor}
-                  open={Boolean(mobileMenuAnchor)}
-                  onClose={handleMobileMenuClose}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  PaperProps={{
-                    sx: {
-                      borderRadius: 0,
-                    }
-                  }}
-                >
-                  {navItems.map((item) => (
-                    <MenuItem
-                      key={item.path}
-                      component={Link}
-                      to={item.path}
-                      onClick={handleMobileMenuClose}
-                      selected={isActive(item.path)}
-                      sx={{ borderRadius: 0 }}
-                    >
-                      {item.label}
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </>
+              <IconButton
+                color="inherit"
+                onClick={handleMobileMenuOpen}
+                sx={{ 
+                  color: 'text.secondary', 
+                  ml: 0.5,
+                  borderRadius: 0,
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
             )}
           </Box>
         </Toolbar>
       </Container>
+
+      {/* Mobile Drawer Menu */}
+      <Drawer
+        anchor="right"
+        open={mobileMenuOpen}
+        onClose={handleMobileMenuClose}
+        PaperProps={{
+          sx: {
+            width: 280,
+            backgroundColor: 'background.paper',
+          }
+        }}
+      >
+        <Box sx={{ py: 2, px: 2 }}>
+          <Typography
+            variant="h6"
+            component={Link}
+            to="/"
+            onClick={handleMobileMenuClose}
+            sx={{
+              textDecoration: 'none',
+              color: 'primary.main',
+              fontWeight: 700,
+              display: 'block',
+              mb: 1,
+            }}
+          >
+            Jiwac's Blog
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            无限进步
+          </Typography>
+        </Box>
+        
+        <Divider />
+        
+        <List sx={{ pt: 1 }}>
+          {navItems.map((item) => {
+            const IconComponent = item.icon;
+            const active = isActive(item.path);
+            return (
+              <ListItem key={item.path} disablePadding>
+                <ListItemButton
+                  component={Link}
+                  to={item.path}
+                  onClick={handleMobileMenuClose}
+                  selected={active}
+                  sx={{
+                    py: 1.5,
+                    px: 2,
+                    borderRadius: 0,
+                    '&.Mui-selected': {
+                      backgroundColor: 'primary.main',
+                      color: 'primary.contrastText',
+                      '&:hover': {
+                        backgroundColor: 'primary.dark',
+                      },
+                      '& .MuiListItemText-primary': {
+                        fontWeight: 600,
+                      },
+                      '& .MuiSvgIcon-root': {
+                        color: 'primary.contrastText',
+                      },
+                    },
+                  }}
+                >
+                  <IconComponent 
+                    sx={{ 
+                      mr: 2, 
+                      color: active ? 'inherit' : 'text.secondary',
+                      fontSize: 22,
+                    }} 
+                  />
+                  <ListItemText 
+                    primary={item.label}
+                    primaryTypographyProps={{
+                      fontSize: '1rem',
+                      fontWeight: active ? 600 : 500,
+                    }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            );
+          })}
+        </List>
+      </Drawer>
     </AppBar>
   );
 };
