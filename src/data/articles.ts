@@ -53,16 +53,56 @@ export const getArticlesByCategory = (category: string) => {
   return articles.filter((article) => article.category === category);
 };
 
-// 动态加载文章 Markdown 内容
+const articleCache = new Map<string, string>();
+
 export const loadArticleContent = async (id: string): Promise<string> => {
+  
+  if (articleCache.has(id)) {
+    return articleCache.get(id)!;
+  }
+
   try {
     const response = await fetch(`/articles/${id}.md`);
     if (!response.ok) {
       throw new Error('Failed to load article');
     }
-    return await response.text();
+    const content = await response.text();
+    // 存入缓存
+    articleCache.set(id, content);
+    return content;
   } catch (error) {
     console.error('Error loading article:', error);
     return '# 文章加载失败\n\n请稍后重试。';
   }
+};
+
+// 预加载文章（在浏览器空闲时执行）
+export const preloadArticle = (id: string): void => {
+  if (articleCache.has(id)) return;
+
+  // 使用 requestIdleCallback 在浏览器空闲时加载
+  const loadWhenIdle = () => {
+    fetch(`/articles/${id}.md`)
+      .then((response) => response.text())
+      .then((content) => {
+        articleCache.set(id, content);
+      })
+      .catch(() => {
+        // 静默失败，不影响用户体验
+      });
+  };
+
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(loadWhenIdle, { timeout: 2000 });
+  } else {
+    // 降级方案：使用 setTimeout
+    setTimeout(loadWhenIdle, 100);
+  }
+};
+
+// 预加载所有文章
+export const preloadAllArticles = (): void => {
+  articles.forEach((article) => {
+    preloadArticle(article.id);
+  });
 };

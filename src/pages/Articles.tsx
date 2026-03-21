@@ -6,7 +6,6 @@ import {
   Grid,
   Card,
   CardContent,
-  CardMedia,
   Chip,
   TextField,
   InputAdornment,
@@ -32,7 +31,8 @@ import {
   AccessTime as AccessTimeIcon,
 } from '@mui/icons-material';
 import { Link, useSearchParams } from 'react-router-dom';
-import { articles, getCategories } from '../data/articles';
+import { articles, getCategories, preloadArticle } from '../data/articles';
+import { LazyImage } from '../components/common';
 
 const sortOptions = [
   { value: 'newest', label: '最新发布' },
@@ -55,6 +55,15 @@ const Articles = () => {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // 预加载文章
+  useEffect(() => {
+    if (mounted) {
+      articles.forEach((article) => {
+        preloadArticle(article.id);
+      });
+    }
+  }, [mounted]);
 
   useEffect(() => {
     const category = searchParams.get('category');
@@ -204,14 +213,17 @@ const Articles = () => {
                     },
                   }}
                 >
-                  <CardMedia
-                    component="img"
-                    image={article.image}
+                  <LazyImage
+                    src={article.image}
                     alt={article.title}
+                    placeholderHeight={viewMode === 'list' 
+                      ? { xs: 100, sm: 140, md: 180 } 
+                      : { xs: 140, sm: 160, md: 160 }
+                    }
                     sx={{
                       width: viewMode === 'list' ? { xs: 120, sm: 200, md: 280 } : '100%',
                       height: viewMode === 'list' ? { xs: 100, sm: 140, md: 180 } : { xs: 140, sm: 160, md: 160 },
-                      objectFit: 'cover',
+                      flexShrink: 0,
                     }}
                   />
                   <CardContent sx={{ flexGrow: 1, p: { xs: 1.5, md: 2 } }}>

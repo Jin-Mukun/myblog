@@ -22,7 +22,7 @@ const skills = [
 ];
 
 const socialLinks = [
-  { icon: <GitHubIcon />, label: 'GitHub', url: 'https://github.com/Jin-Mukun' },
+  { icon: <GitHubIcon />, label: 'GitHub', url: 'https://github.com/mukunjin' },
   { icon: <YouTubeIcon />, label: 'YouTube', url: 'https://www.youtube.com/channel/UCRCqq4pyu9V1D_ms7KrVauA' },
   { icon: <TwitterIcon />, label: 'X', url: 'https://x.com/mukunjin' },
 ];

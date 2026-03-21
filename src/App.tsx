@@ -1,4 +1,4 @@
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -44,6 +44,20 @@ const PageTransition = ({ children }: { children: React.ReactNode }) => {
       {children}
     </motion.div>
   );
+};
+
+// 滚动到顶部组件
+const ScrollToTop = () => {
+  const location = useLocation();
+  
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, [location.pathname]);
+  
+  return null;
 };
 
 // 带动画的路由组件
@@ -119,6 +133,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
+        <ScrollToTop />
         <Layout>
           <Suspense fallback={<PageLoading />}>
             <AnimatedRoutes />

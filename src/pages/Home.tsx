@@ -6,7 +6,6 @@ import {
   Grid,
   Card,
   CardContent,
-  CardMedia,
   Chip,
   Avatar,
   Button,
@@ -20,7 +19,8 @@ import {
   TrendingUp as TrendingUpIcon,
 } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-import { articles, getCategories } from '../data/articles';
+import { articles, getCategories, preloadAllArticles } from '../data/articles';
+import { LazyImage } from '../components/common';
 
 const Home = () => {
   const theme = useTheme();
@@ -32,6 +32,8 @@ const Home = () => {
 
   useEffect(() => {
     setMounted(true);
+    // 预加载所有文章
+    preloadAllArticles();
   }, []);
 
   return (
@@ -233,11 +235,10 @@ const Home = () => {
                       },
                     }}
                   >
-                    <CardMedia
-                      component="img"
-                      height={isMobile ? 140 : 160}
-                      image={article.image}
+                    <LazyImage
+                      src={article.image}
                       alt={article.title}
+                      placeholderHeight={isMobile ? 140 : 160}
                     />
                     <CardContent sx={{ flexGrow: 1, p: { xs: 1.5, md: 2 } }}>
                       <Chip

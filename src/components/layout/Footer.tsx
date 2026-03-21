@@ -28,7 +28,7 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { icon: <GitHubIcon />, href: 'https://github.com/Jin-Mukun', label: 'GitHub' },
+    { icon: <GitHubIcon />, href: 'https://github.com/mukunjin', label: 'GitHub' },
     { icon: <YouTubeIcon />, href: 'https://www.youtube.com/channel/UCRCqq4pyu9V1D_ms7KrVauA', label: 'YouTube' },
     { icon: <TwitterIcon />, href: 'https://x.com/mukunjin', label: 'X' },
   ];
