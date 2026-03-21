@@ -1,10 +1,11 @@
-# 行走的驾驶舱
+# Jiwac's Blog
 
 一个基于 React + TypeScript 构建的简洁优雅的个人博客网站。
 
 ## 在线访问
 
 [https://dev.dpdns.org](https://dev.dpdns.org)
+
 [https://jmk.gv.uy](https://jmk.gv.uyg)
 
 ## 技术栈
@@ -235,7 +236,7 @@ export const articles: Article[] = [
 
 MIT License
 
-Copyright (c) 2026 行走的驾驶舱
+Copyright (c) 2026 Mukun Jin
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
