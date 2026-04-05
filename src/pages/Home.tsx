@@ -228,6 +228,7 @@ const Home = () => {
                       display: 'flex',
                       flexDirection: 'column',
                       height: '100%',
+                      overflow: 'hidden',
                       transition: 'all 0.2s ease',
                       '&:hover': {
                         transform: 'translateY(-4px)',

@@ -14,8 +14,7 @@ import {
   Select,
   MenuItem,
   Pagination,
-  ToggleButtonGroup,
-  ToggleButton,
+  
   Fade,
   Grow,
   IconButton,
@@ -26,8 +25,6 @@ import {
 import {
   Search as SearchIcon,
   Clear as ClearIcon,
-  ViewList as ViewListIcon,
-  ViewModule as ViewModuleIcon,
   AccessTime as AccessTimeIcon,
 } from '@mui/icons-material';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -48,7 +45,7 @@ const Articles = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(categoryParam);
   const [sortBy, setSortBy] = useState('newest');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  
   const [page, setPage] = useState(1);
   const [mounted, setMounted] = useState(false);
 
@@ -89,14 +86,7 @@ const Articles = () => {
     setSearchQuery('');
   };
 
-  const handleViewModeChange = (
-    _event: React.MouseEvent<HTMLElement>,
-    newMode: 'grid' | 'list' | null
-  ) => {
-    if (newMode !== null) {
-      setViewMode(newMode);
-    }
-  };
+  
 
   const filteredArticles = articles.filter((article) => {
     const matchesSearch = article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -176,36 +166,23 @@ const Articles = () => {
           </FormControl>
 
           {/* View Mode */}
-          <ToggleButtonGroup
-            value={viewMode}
-            exclusive
-            onChange={handleViewModeChange}
-            aria-label="view mode"
-            size="small"
-            sx={{ ml: { xs: 0, md: 'auto' } }}
-          >
-            <ToggleButton value="grid" aria-label="grid view">
-              <ViewModuleIcon fontSize="small" />
-            </ToggleButton>
-            <ToggleButton value="list" aria-label="list view">
-              <ViewListIcon fontSize="small" />
-            </ToggleButton>
-          </ToggleButtonGroup>
+          
         </Paper>
 
         {/* Articles Grid/List */}
         <Grid container spacing={{ xs: 2, md: 2 }}>
           {filteredArticles.map((article, index) => (
             <Grow in={mounted} timeout={300 + index * 100} key={article.id}>
-              <Grid size={{ xs: 12, sm: viewMode === 'grid' ? 6 : 12, md: viewMode === 'grid' ? 4 : 12 }}>
+              <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                 <Card
                   component={Link}
                   to={`/articles/${article.id}`}
                   sx={{
                     textDecoration: 'none',
                     display: 'flex',
-                    flexDirection: viewMode === 'list' ? 'row' : 'column',
+                    flexDirection: 'column',
                     height: '100%',
+                    overflow: 'hidden',
                     transition: 'all 0.2s ease',
                     '&:hover': {
                       transform: 'translateY(-4px)',
@@ -216,13 +193,10 @@ const Articles = () => {
                   <LazyImage
                     src={article.image}
                     alt={article.title}
-                    placeholderHeight={viewMode === 'list' 
-                      ? { xs: 100, sm: 140, md: 180 } 
-                      : { xs: 140, sm: 160, md: 160 }
-                    }
+                    placeholderHeight={{ xs: 140, sm: 160, md: 160 }}
                     sx={{
-                      width: viewMode === 'list' ? { xs: 120, sm: 200, md: 280 } : '100%',
-                      height: viewMode === 'list' ? { xs: 100, sm: 140, md: 180 } : { xs: 140, sm: 160, md: 160 },
+                      width: '100%',
+                      height: { xs: 140, sm: 160, md: 160 },
                       flexShrink: 0,
                     }}
                   />

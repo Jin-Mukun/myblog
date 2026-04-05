@@ -11,7 +11,7 @@ interface LazyImageProps {
 const LazyImage = ({ src, alt, sx = {}, placeholderHeight = 200 }: LazyImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(false);
-  const imgRef = useRef<HTMLImageElement>(null);
+  const imgRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -29,8 +29,9 @@ const LazyImage = ({ src, alt, sx = {}, placeholderHeight = 200 }: LazyImageProp
       }
     );
 
-    if (imgRef.current) {
-      observer.observe(imgRef.current);
+    const el = imgRef.current;
+    if (el) {
+      observer.observe(el);
     }
 
     return () => observer.disconnect();
@@ -45,6 +46,9 @@ const LazyImage = ({ src, alt, sx = {}, placeholderHeight = 200 }: LazyImageProp
       ref={imgRef}
       sx={{
         position: 'relative',
+        display: 'block',
+        lineHeight: 0,
+        overflow: 'hidden',
         width: '100%',
         height: placeholderHeight,
         ...sx,
@@ -70,12 +74,12 @@ const LazyImage = ({ src, alt, sx = {}, placeholderHeight = 200 }: LazyImageProp
           alt={alt}
           onLoad={handleLoad}
           sx={{
+            display: 'block',
             width: '100%',
             height: '100%',
             objectFit: 'cover',
             opacity: isLoaded ? 1 : 0,
             transition: 'opacity 0.3s ease',
-            ...sx,
           }}
         />
       )}
