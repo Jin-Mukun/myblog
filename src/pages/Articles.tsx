@@ -109,29 +109,58 @@ const Articles = () => {
         </Box>
 
         {/* Filters */}
-        <Paper sx={{ display: 'flex', flexWrap: 'wrap', gap: { xs: 1.5, md: 2 }, mb: { xs: 3, md: 4 }, p: { xs: 1.5, md: 2 }, alignItems: 'center' }}>
+        <Paper sx={{ display: 'flex', flexWrap: 'wrap', gap: { xs: 1.5, md: 2 }, mb: { xs: 3, md: 4 }, p: { xs: 1.5, md: 2 }, alignItems: 'center', borderRadius: 2, boxShadow: '0 6px 22px rgba(3,18,40,0.04)', backgroundColor: 'background.paper' }}>
           {/* Search */}
-          <TextField
-            placeholder="搜索文章..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            size="small"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon fontSize="small" color="action" />
-                </InputAdornment>
-              ),
-              endAdornment: searchQuery && (
-                <InputAdornment position="end">
-                  <IconButton size="small" onClick={handleClearSearch} edge="end">
-                    <ClearIcon fontSize="small" />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            sx={{ width: { xs: '100%', sm: 220 } }}
-          />
+          <Box sx={{ flex: '1 1 auto', minWidth: { xs: '100%', sm: 220 }, maxWidth: { md: 420 } }}>
+            <TextField
+              placeholder="搜索文章..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              variant="outlined"
+              size={isMobile ? 'medium' : 'small'}
+              fullWidth
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start" sx={{ mr: 1 }}>
+                    <Box
+                      sx={{
+                        width: 40,
+                        height: 40,
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        borderRadius: '50%',
+                        background: 'rgba(25,118,210,0.06)',
+                        color: 'primary.main',
+                        mr: 0.5,
+                      }}
+                    >
+                      <SearchIcon fontSize="small" />
+                    </Box>
+                  </InputAdornment>
+                ),
+                endAdornment: searchQuery && (
+                  <InputAdornment position="end">
+                    <IconButton size="small" onClick={handleClearSearch} edge="end" sx={{ borderRadius: '50%', overflow: 'hidden', position: 'relative' }}>
+                      <ClearIcon fontSize="small" />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  borderRadius: 999,
+                  paddingRight: 0,
+                  backgroundColor: 'background.paper',
+                  transition: 'box-shadow 200ms ease, transform 200ms ease',
+                },
+                '& .MuiOutlinedInput-root.Mui-focused': {
+                  boxShadow: '0 8px 30px rgba(13,71,161,0.08)',
+                  transform: 'translateY(-2px)',
+                },
+              }}
+            />
+          </Box>
 
           {/* Category Filter */}
           <FormControl size="small" sx={{ minWidth: { xs: 100, sm: 120 } }}>

@@ -99,7 +99,8 @@ const Header = () => {
                     color: isActive(item.path) ? 'primary.main' : 'text.secondary',
                     fontWeight: isActive(item.path) ? 600 : 500,
                     position: 'relative',
-                    borderRadius: 0,
+                    borderRadius: 1,
+                    overflow: 'hidden',
                     minWidth: 'auto',
                     px: 2,
                     py: 1,
@@ -127,7 +128,9 @@ const Header = () => {
               color="inherit" 
               sx={{ 
                 color: 'text.secondary',
-                borderRadius: 0,
+                borderRadius: 1,
+                overflow: 'hidden',
+                position: 'relative',
               }}
               component={Link}
               to="/search"
@@ -143,7 +146,9 @@ const Header = () => {
                 sx={{ 
                   color: 'text.secondary', 
                   ml: 0.5,
-                  borderRadius: 0,
+                  borderRadius: 1,
+                  overflow: 'hidden',
+                  position: 'relative',
                 }}
               >
                 <MenuIcon />
@@ -202,7 +207,9 @@ const Header = () => {
                   sx={{
                     py: 1.5,
                     px: 2,
-                    borderRadius: 0,
+                    borderRadius: 1,
+                    overflow: 'hidden',
+                    position: 'relative',
                     '&.Mui-selected': {
                       backgroundColor: 'primary.main',
                       color: 'primary.contrastText',
