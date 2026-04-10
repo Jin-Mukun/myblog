@@ -29,7 +29,6 @@ import {
 } from '@mui/icons-material';
 import { Link, useSearchParams } from 'react-router-dom';
 import { articles, getCategories, preloadArticle } from '../data/articles';
-import { LazyImage } from '../components/common';
 
 const sortOptions = [
   { value: 'newest', label: '最新发布' },
@@ -219,16 +218,7 @@ const Articles = () => {
                     },
                   }}
                 >
-                  <LazyImage
-                    src={article.image}
-                    alt={article.title}
-                    placeholderHeight={{ xs: 140, sm: 160, md: 160 }}
-                    sx={{
-                      width: '100%',
-                      height: { xs: 140, sm: 160, md: 160 },
-                      flexShrink: 0,
-                    }}
-                  />
+                    {/* article cover removed */}
                   <CardContent sx={{ flexGrow: 1, p: { xs: 1.5, md: 2 } }}>
                     <Chip
                       label={article.category}

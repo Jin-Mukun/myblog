@@ -17,7 +17,6 @@ import {
 import { AccessTime as AccessTimeIcon } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { articles, preloadAllArticles } from '../data/articles';
-import { LazyImage } from '../components/common';
 
 const Home = () => {
   const theme = useTheme();
@@ -182,11 +181,7 @@ const Home = () => {
                       },
                     }}
                   >
-                    <LazyImage
-                      src={article.image}
-                      alt={article.title}
-                      placeholderHeight={isMobile ? 140 : 160}
-                    />
+                      {/* article cover removed */}
                     <CardContent sx={{ flexGrow: 1, p: { xs: 1.5, md: 2 } }}>
                       <Chip
                         label={article.category}

@@ -1,2 +1,2 @@
-export { default as LazyImage } from './LazyImage';
+// LazyImage removed
 export { default as ArticleCardSkeleton } from './ArticleCardSkeleton';

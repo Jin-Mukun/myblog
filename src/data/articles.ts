@@ -3,7 +3,7 @@ export interface Article {
   id: string;
   title: string;
   excerpt: string;
-  image: string;
+  // image removed
   category: string;
   date: string;
   author: {
@@ -19,7 +19,7 @@ export const articles: Article[] = [
     id: 'blog-anniversary',
     title: '博客成立纪念日',
     excerpt: '记录博客的成立时刻，开启无限进步的旅程...',
-    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800',
+    // image removed
     category: '其他',
     date: '2026-03-14',
     author: {

@@ -2,7 +2,6 @@ import {
   Box,
   Container,
   Typography,
-  Link,
   Divider,
   Stack,
   IconButton,
@@ -20,10 +19,7 @@ const Footer = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const currentYear = new Date().getFullYear();
 
-  const footerLinks = [
-    { label: '首页', href: '/' },
-    { label: '文章', href: '/articles' },
-  ];
+  // footer links removed
 
   const socialLinks = [
     { icon: <GitHubIcon />, href: 'https://github.com/mukunjin', label: 'GitHub' },
@@ -38,76 +34,73 @@ const Footer = () => {
         backgroundColor: 'background.paper',
         borderTop: '1px solid',
         borderColor: 'divider',
-        py: { xs: 3, md: 4 },
+        py: { xs: 3, md: 5 },
         mt: 'auto',
       }}
     >
       <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
-        {/* Social Links */}
-        <Stack
-          direction="row"
-          spacing={1}
-          justifyContent="center"
-          sx={{ mb: { xs: 1.5, md: 2 } }}
+        <Box
+          sx={{
+            display: 'flex',
+            gap: 3,
+            alignItems: 'flex-start',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+          }}
         >
-          {socialLinks.map((link) => (
-            <IconButton
-              key={link.label}
-              component="a"
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              size={isMobile ? 'small' : 'medium'}
-              sx={{
-                color: 'text.secondary',
-                '&:hover': {
-                  color: 'primary.main',
-                },
-              }}
-              aria-label={link.label}
-            >
-              {link.icon}
-            </IconButton>
-          ))}
-        </Stack>
+          {/* Left: site title + description + social (narrower) */}
+          <Box sx={{ flex: '0 0 260px', display: 'flex', flexDirection: 'column', gap: 1 }}>
+            <Typography variant="h6" fontWeight={800} sx={{ color: 'text.primary' }}>
+              Jiwac's Blog
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+              无限进步
+            </Typography>
+            {/* social icons moved to right column */}
+          </Box>
 
-        {/* Footer Links */}
-        <Stack
-          direction="row"
-          spacing={{ xs: 2, md: 3 }}
-          justifyContent="center"
-          sx={{ mb: { xs: 1.5, md: 2 }, flexWrap: 'wrap' }}
-        >
-          {footerLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              underline="hover"
-              sx={{
-                color: 'text.secondary',
-                fontSize: { xs: '0.8125rem', md: '0.875rem' },
-                '&:hover': {
-                  color: 'primary.main',
-                },
-              }}
+          {/* Right: links grouped and aligned to right (wider) */}
+          <Box sx={{ flex: '1 1 320px', minWidth: 220, display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-start' }}>
+            <Stack
+              direction="column"
+              spacing={0.5}
+              sx={{ alignItems: { xs: 'flex-start', sm: 'flex-end' }, width: '100%' }}
             >
-              {link.label}
-            </Link>
-          ))}
-        </Stack>
+              {/* links removed */}
 
+              {/* Social icons aligned with links on the right */}
+              <Stack direction="row" spacing={2} sx={{ justifyContent: { xs: 'flex-start', sm: 'flex-end' }, mt: { xs: 1, sm: 2 } }}>
+                {socialLinks.map((link) => (
+                  <IconButton
+                    key={link.label}
+                    component="a"
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    size={isMobile ? 'small' : 'medium'}
+                    sx={{
+                      color: 'text.secondary',
+                      '&:hover': { color: 'primary.main' },
+                      p: isMobile ? 0.5 : 0.75,
+                    }}
+                    aria-label={link.label}
+                  >
+                    {link.icon}
+                  </IconButton>
+                ))}
+              </Stack>
+
+              {/* copyright moved to bottom */}
+            </Stack>
+          </Box>
+        </Box>
         <Divider sx={{ my: { xs: 1.5, md: 2 } }} />
 
-        {/* Copyright */}
-        <Typography
-          variant="caption"
-          color="text.secondary"
-          align="center"
-          display="block"
-          sx={{ fontSize: { xs: '0.75rem', md: '0.8125rem' } }}
-        >
-          © {currentYear} Jiwac's Blog
-        </Typography>
+        <Box sx={{ textAlign: 'center', mt: 1 }}>
+          <Typography variant="caption" color="text.secondary">
+            © {currentYear} Jiwac's Blog。保留所有权利。
+          </Typography>
+        </Box>
       </Container>
     </Box>
   );

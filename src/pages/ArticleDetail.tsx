@@ -111,17 +111,7 @@ const ArticleDetail = () => {
       </Box>
 
       {/* Featured Image */}
-      <Box
-        component="img"
-        src={article.image}
-        alt={article.title}
-        sx={{ 
-          width: '100%', 
-          height: { xs: 200, sm: 300, md: 400 }, 
-          objectFit: 'cover', 
-          mb: { xs: 3, md: 4 },
-        }}
-      />
+        {/* Featured image removed */}
 
       {/* Article Content */}
       <Paper
