@@ -23,8 +23,6 @@ const Footer = () => {
   const footerLinks = [
     { label: '首页', href: '/' },
     { label: '文章', href: '/articles' },
-    { label: '分类', href: '/categories' },
-    { label: '关于', href: '/about' },
   ];
 
   const socialLinks = [

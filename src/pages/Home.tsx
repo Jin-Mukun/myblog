@@ -114,24 +114,7 @@ const Home = () => {
                     >
                       浏览文章
                     </Button>
-                    <Button
-                      variant="outlined"
-                      size={isMobile ? 'medium' : 'large'}
-                      component={Link}
-                      to="/about"
-                      sx={{
-                        borderColor: '#ffffff',
-                        color: '#ffffff',
-                        fontWeight: 600,
-                        px: { xs: 3, md: 4 },
-                        '&:hover': {
-                          borderColor: '#ffffff',
-                          backgroundColor: 'rgba(255,255,255,0.1)',
-                        },
-                      }}
-                    >
-                      关于我
-                    </Button>
+                    {/* 关于页面已移除 */}
                   </Box>
                 </Box>
               </Fade>

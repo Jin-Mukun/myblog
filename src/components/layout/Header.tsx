@@ -21,16 +21,12 @@ import {
   Search as SearchIcon,
   Home as HomeIcon,
   Article as ArticleIcon,
-  Category as CategoryIcon,
-  Person as PersonIcon,
 } from '@mui/icons-material';
 import { Link, useLocation } from 'react-router-dom';
 
 const navItems = [
   { label: '首页', path: '/', icon: HomeIcon },
   { label: '文章', path: '/articles', icon: ArticleIcon },
-  { label: '分类', path: '/categories', icon: CategoryIcon },
-  { label: '关于', path: '/about', icon: PersonIcon },
 ];
 
 const Header = () => {

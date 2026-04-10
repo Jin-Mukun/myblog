@@ -12,8 +12,7 @@ import './App.css';
 const Home = lazy(() => import('./pages/Home'));
 const Articles = lazy(() => import('./pages/Articles'));
 const ArticleDetail = lazy(() => import('./pages/ArticleDetail'));
-const Categories = lazy(() => import('./pages/Categories'));
-const About = lazy(() => import('./pages/About'));
+// Categories and About pages removed
 
 // 加载状态组件
 const PageLoading = () => (
@@ -91,30 +90,7 @@ const AnimatedRoutes = () => {
             </PageTransition>
           } 
         />
-        <Route 
-          path="/categories" 
-          element={
-            <PageTransition>
-              <Categories />
-            </PageTransition>
-          } 
-        />
-        <Route 
-          path="/categories/:name" 
-          element={
-            <PageTransition>
-              <Articles />
-            </PageTransition>
-          } 
-        />
-        <Route 
-          path="/about" 
-          element={
-            <PageTransition>
-              <About />
-            </PageTransition>
-          } 
-        />
+        
         <Route 
           path="/search" 
           element={
