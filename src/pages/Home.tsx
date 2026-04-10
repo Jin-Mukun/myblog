@@ -14,19 +14,16 @@ import {
   useTheme,
   useMediaQuery,
 } from '@mui/material';
-import {
-  AccessTime as AccessTimeIcon,
-  TrendingUp as TrendingUpIcon,
-} from '@mui/icons-material';
+import { AccessTime as AccessTimeIcon } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-import { articles, getCategories, preloadAllArticles } from '../data/articles';
+import { articles, preloadAllArticles } from '../data/articles';
 import { LazyImage } from '../components/common';
 
 const Home = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
-  const categories = getCategories();
+  
   const featuredArticles = articles.slice(0, isMobile ? 2 : 3);
   const [mounted, setMounted] = useState(false);
 
@@ -152,45 +149,11 @@ const Home = () => {
       </Box>
 
       <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
-        {/* Categories */}
-        <Fade in={mounted} timeout={500}>
-          <Box sx={{ mb: { xs: 4, md: 6 } }}>
-            <Typography variant={isMobile ? 'h6' : 'h5'} gutterBottom fontWeight={600}>
-              文章分类
-            </Typography>
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-              {categories.map((category, index) => (
-                <Grow
-                  in={mounted}
-                  timeout={400 + index * 100}
-                  key={category.name}
-                >
-                  <Chip
-                    label={`${category.name} (${category.count})`}
-                    component={Link}
-                    to={`/articles?category=${encodeURIComponent(category.name)}`}
-                    clickable
-                    size={isMobile ? 'small' : 'medium'}
-                    sx={{
-                      px: { xs: 0.5, md: 1 },
-                      py: { xs: 2, md: 2.5 },
-                      fontSize: { xs: '0.875rem', md: '0.95rem' },
-                      '&:hover': {
-                        backgroundColor: 'primary.main',
-                        color: 'white',
-                      },
-                    }}
-                  />
-                </Grow>
-              ))}
-            </Box>
-          </Box>
-        </Fade>
+        {/* 文章分类已移除 */}
 
         {/* Latest Articles */}
         <Box sx={{ mb: { xs: 4, md: 6 } }}>
           <Box sx={{ display: 'flex', alignItems: 'center', mb: { xs: 2, md: 3 } }}>
-            <TrendingUpIcon sx={{ mr: 1, color: 'secondary.main', fontSize: { xs: 20, md: 24 } }} />
             <Typography variant={isMobile ? 'h6' : 'h5'} fontWeight={600}>
               最新文章
             </Typography>
