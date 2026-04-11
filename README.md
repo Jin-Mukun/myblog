@@ -70,7 +70,7 @@ npm run preview
 ```
 my-blog/
 ├── public/                      # 静态资源目录
-│   ├── articles/                # Markdown 文章存放目录
+│   ├── posts/                   # Markdown 文章存放目录
 │   │   └── blog-anniversary.md  # 文章文件
 │   └── images/                  # 图片资源
 │       ├── favicon.ico          # 网站图标
@@ -106,11 +106,11 @@ my-blog/
 
 ### 第一步：创建 Markdown 文件
 
-在 `public/articles/` 目录下创建新的 Markdown 文件，文件名格式为 `文章id.md`，例如 `my-first-post.md`。
+在 `public/posts/` 目录下创建新的 Markdown 文件，文件名格式为 `文章id.md`，例如 `my-first-post.md`。
 
 ```bash
 # 示例：创建新文章
-touch public/articles/my-first-post.md
+touch public/posts/my-first-post.md
 ```
 
 ### 第二步：编写文章内容

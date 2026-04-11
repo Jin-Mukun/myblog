@@ -111,7 +111,16 @@ const ArticleDetail = () => {
       </Box>
 
       {/* Featured Image */}
-        {/* Featured image removed */}
+      {article.cover && (
+        <Box sx={{ mb: { xs: 2, md: 3 } }}>
+          <Box
+            component="img"
+            src={article.cover}
+            alt={article.title}
+            sx={{ width: '100%', borderRadius: 2, maxHeight: 420, objectFit: 'cover' }}
+          />
+        </Box>
+      )}
 
       {/* Article Content */}
       <Paper

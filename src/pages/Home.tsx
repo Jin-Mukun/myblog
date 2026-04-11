@@ -5,6 +5,7 @@ import {
   Box,
   Grid,
   Card,
+  CardMedia,
   CardContent,
   Chip,
   Avatar,
@@ -181,7 +182,14 @@ const Home = () => {
                       },
                     }}
                   >
-                      {/* article cover removed */}
+                      {article.cover && (
+                        <CardMedia
+                          component="img"
+                          image={article.cover}
+                          alt={article.title}
+                          sx={{ height: { xs: 140, md: 160 }, objectFit: 'cover' }}
+                        />
+                      )}
                     <CardContent sx={{ flexGrow: 1, p: { xs: 1.5, md: 2 } }}>
                       <Chip
                         label={article.category}

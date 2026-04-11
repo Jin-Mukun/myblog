@@ -3,7 +3,8 @@ export interface Article {
   id: string;
   title: string;
   excerpt: string;
-  // image removed
+  // optional cover image URL
+  cover?: string;
   category: string;
   date: string;
   author: {
@@ -19,7 +20,7 @@ export const articles: Article[] = [
     id: 'blog-anniversary',
     title: '博客成立纪念日',
     excerpt: '记录博客的成立时刻，开启无限进步的旅程...',
-    // image removed
+    cover: 'https://256.dpdns.org/file/images/1775896212464_jmk-blog.webp',
     category: '其他',
     date: '2026-03-14',
     author: {
@@ -62,7 +63,7 @@ export const loadArticleContent = async (id: string): Promise<string> => {
   }
 
   try {
-    const response = await fetch(`/articles/${id}.md`);
+    const response = await fetch(`/posts/${id}.md`);
     if (!response.ok) {
       throw new Error('Failed to load article');
     }
@@ -82,7 +83,7 @@ export const preloadArticle = (id: string): void => {
 
   // 使用 requestIdleCallback 在浏览器空闲时加载
   const loadWhenIdle = () => {
-    fetch(`/articles/${id}.md`)
+    fetch(`/posts/${id}.md`)
       .then((response) => response.text())
       .then((content) => {
         articleCache.set(id, content);
