@@ -50,7 +50,7 @@ const ArticleDetail = () => {
         <Typography variant={isMobile ? 'h5' : 'h4'} sx={{ mt: 4 }}>
           文章不存在
         </Typography>
-        <Button component={Link} to="/articles" sx={{ mt: 2 }}>
+        <Button component={Link} to="/posts" sx={{ mt: 2 }}>
           返回文章列表
         </Button>
       </Container>
@@ -62,7 +62,7 @@ const ArticleDetail = () => {
       {/* Back Button */}
       <Button
         component={Link}
-        to="/articles"
+        to="/posts"
         startIcon={<ArrowBackIcon />}
         sx={{ mb: { xs: 2, md: 3 }, fontSize: { xs: '0.875rem', md: '1rem' } }}
         size={isMobile ? 'small' : 'medium'}

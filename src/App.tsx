@@ -75,7 +75,7 @@ const AnimatedRoutes = () => {
           } 
         />
         <Route 
-          path="/articles" 
+          path="/posts" 
           element={
             <PageTransition>
               <Articles />
@@ -83,19 +83,10 @@ const AnimatedRoutes = () => {
           } 
         />
         <Route 
-          path="/articles/:id" 
+          path="/posts/:id" 
           element={
             <PageTransition>
               <ArticleDetail />
-            </PageTransition>
-          } 
-        />
-        
-        <Route 
-          path="/search" 
-          element={
-            <PageTransition>
-              <Articles />
             </PageTransition>
           } 
         />

@@ -18,7 +18,6 @@ import {
 } from '@mui/material';
 import {
   Menu as MenuIcon,
-  Search as SearchIcon,
   Home as HomeIcon,
   Article as ArticleIcon,
 } from '@mui/icons-material';
@@ -26,7 +25,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 const navItems = [
   { label: '首页', path: '/', icon: HomeIcon },
-  { label: '文章', path: '/articles', icon: ArticleIcon },
+  { label: '搜索', path: '/posts', icon: ArticleIcon },
 ];
 
 const Header = () => {
@@ -120,20 +119,6 @@ const Header = () => {
 
           {/* Action Buttons */}
           <Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
-            <IconButton 
-              color="inherit" 
-              sx={{ 
-                color: 'text.secondary',
-                borderRadius: 1,
-                overflow: 'hidden',
-                position: 'relative',
-              }}
-              component={Link}
-              to="/search"
-            >
-              <SearchIcon />
-            </IconButton>
-
             {/* Mobile Menu Button */}
             {isMobile && (
               <IconButton

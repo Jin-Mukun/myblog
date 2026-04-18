@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import {
   Container,
   Typography,
@@ -10,6 +10,7 @@ import {
   Chip,
   Avatar,
   Button,
+  Pagination,
   Fade,
   Grow,
   useTheme,
@@ -17,15 +18,31 @@ import {
 } from '@mui/material';
 import { AccessTime as AccessTimeIcon } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-import { articles, preloadAllArticles } from '../data/articles';
+import { articles, preloadAllArticles, defaultAuthor } from '../data/articles';
+
+const ARTICLES_PER_PAGE = 6;
 
 const Home = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.down('md'));
-  
-  const featuredArticles = articles.slice(0, isMobile ? 2 : 3);
+
+  const [page, setPage] = useState(1);
   const [mounted, setMounted] = useState(false);
+
+  // 分页数据
+  const paginatedArticles = useMemo(() => {
+    const startIndex = (page - 1) * ARTICLES_PER_PAGE;
+    return articles.slice(startIndex, startIndex + ARTICLES_PER_PAGE);
+  }, [page]);
+
+  // 总页数
+  const totalPages = Math.ceil(articles.length / ARTICLES_PER_PAGE);
+
+  const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -63,13 +80,19 @@ const Home = () => {
                     height: { xs: 80, sm: 100 },
                     border: '3px solid white',
                   }}
-                  src="/images/jinmukun-avatar.jpg"
+                  src={defaultAuthor.avatar}
+                  slotProps={{
+                    img: {
+                      loading: 'eager',
+                      decoding: 'async',
+                    },
+                  }}
                 />
                 <Typography variant="h6" fontWeight={600}>
-                  Jiwac
+                  {defaultAuthor.name}
                 </Typography>
                 <Typography variant="body2" sx={{ opacity: 0.8, textAlign: 'center' }}>
-                  业余开发爱好者 | F1爱好者
+                  {defaultAuthor.bio}
                 </Typography>
               </Box>
             </Fade>
@@ -98,7 +121,7 @@ const Home = () => {
                       variant="contained"
                       size={isMobile ? 'medium' : 'large'}
                       component={Link}
-                      to="/articles"
+                      to="/posts"
                       sx={{
                         backgroundColor: '#ffffff',
                         color: '#1976D2',
@@ -133,13 +156,19 @@ const Home = () => {
                       height: { md: 100, lg: 120 },
                       border: '4px solid white',
                     }}
-                    src="/images/jinmukun-avatar.jpg"
+                    src={defaultAuthor.avatar}
+                    slotProps={{
+                      img: {
+                        loading: 'eager',
+                        decoding: 'async',
+                      },
+                    }}
                   />
                   <Typography variant="h6" fontWeight={600}>
-                    Jiwac
+                    {defaultAuthor.name}
                   </Typography>
                   <Typography variant="body2" sx={{ opacity: 0.8, textAlign: 'center' }}>
-                    业余开发爱好者 | F1爱好者
+                    {defaultAuthor.bio}
                   </Typography>
                 </Box>
               </Fade>
@@ -159,7 +188,7 @@ const Home = () => {
             </Typography>
           </Box>
           <Grid container spacing={{ xs: 2, md: 2 }}>
-            {featuredArticles.map((article, index) => (
+            {paginatedArticles.map((article, index) => (
               <Grow
                 in={mounted}
                 timeout={500 + index * 100}
@@ -168,7 +197,7 @@ const Home = () => {
                 <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                   <Card
                     component={Link}
-                    to={`/articles/${article.id}`}
+                    to={`/posts/${article.id}`}
                     sx={{
                       textDecoration: 'none',
                       display: 'flex',
@@ -237,6 +266,21 @@ const Home = () => {
               </Grow>
             ))}
           </Grid>
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: { xs: 4, md: 6 } }}>
+              <Pagination
+                count={totalPages}
+                page={page}
+                onChange={handlePageChange}
+                color="primary"
+                size={isMobile ? 'small' : 'medium'}
+                showFirstButton
+                showLastButton
+              />
+            </Box>
+          )}
         </Box>
       </Container>
     </Box>

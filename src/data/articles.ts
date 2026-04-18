@@ -1,3 +1,17 @@
+// 作者信息配置
+export interface Author {
+  name: string;
+  avatar: string;
+  bio: string;
+}
+
+// 默认作者信息
+export const defaultAuthor: Author = {
+  name: 'Jiwac',
+  avatar: '/images/jinmukun-avatar.webp',
+  bio: '业余开发爱好者',
+};
+
 // 文章数据配置
 export interface Article {
   id: string;
@@ -7,11 +21,7 @@ export interface Article {
   cover?: string;
   category: string;
   date: string;
-  author: {
-    name: string;
-    avatar: string;
-    bio: string;
-  };
+  author: Author;
 }
 
 // 文章元数据列表
@@ -23,11 +33,7 @@ export const articles: Article[] = [
     cover: 'https://256.dpdns.org/file/images/1775896212464_jmk-blog.webp',
     category: '其他',
     date: '2026-03-14',
-    author: {
-      name: 'Jiwac',
-      avatar: '/images/jinmukun-avatar.jpg',
-      bio: '业余开发爱好者 | F1爱好者',
-    },
+    author: defaultAuthor,
   },
 ];
 

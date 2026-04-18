@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import {
   Container,
   Typography,
@@ -15,7 +15,6 @@ import {
   Select,
   MenuItem,
   Pagination,
-  
   Fade,
   Grow,
   IconButton,
@@ -36,6 +35,8 @@ const sortOptions = [
   { value: 'oldest', label: '最早发布' },
 ];
 
+const ARTICLES_PER_PAGE = 6;
+
 const Articles = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -45,7 +46,7 @@ const Articles = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(categoryParam);
   const [sortBy, setSortBy] = useState('newest');
-  
+
   const [page, setPage] = useState(1);
   const [mounted, setMounted] = useState(false);
 
@@ -86,14 +87,44 @@ const Articles = () => {
     setSearchQuery('');
   };
 
-  
+  const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
-  const filteredArticles = articles.filter((article) => {
-    const matchesSearch = article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         article.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === '全部' || article.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+  const filteredArticles = useMemo(() => {
+    let result = articles.filter((article) => {
+      const matchesSearch = article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                           article.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesCategory = selectedCategory === '全部' || article.category === selectedCategory;
+      return matchesSearch && matchesCategory;
+    });
+
+    // 排序
+    result = [...result].sort((a, b) => {
+      if (sortBy === 'newest') {
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+      } else {
+        return new Date(a.date).getTime() - new Date(b.date).getTime();
+      }
+    });
+
+    return result;
+  }, [searchQuery, selectedCategory, sortBy]);
+
+  // 分页数据
+  const paginatedArticles = useMemo(() => {
+    const startIndex = (page - 1) * ARTICLES_PER_PAGE;
+    return filteredArticles.slice(startIndex, startIndex + ARTICLES_PER_PAGE);
+  }, [filteredArticles, page]);
+
+  // 总页数
+  const totalPages = Math.ceil(filteredArticles.length / ARTICLES_PER_PAGE);
+
+  // 当筛选条件变化时重置页码
+  useEffect(() => {
+    setPage(1);
+  }, [searchQuery, selectedCategory, sortBy]);
 
   return (
     <Fade in={mounted} timeout={400}>
@@ -101,7 +132,7 @@ const Articles = () => {
         {/* Header */}
         <Box sx={{ mb: { xs: 3, md: 4 } }}>
           <Typography variant={isMobile ? 'h4' : 'h3'} component="h1" gutterBottom fontWeight={700}>
-            文章列表
+            搜索文章
           </Typography>
           <Typography variant="body1" color="text.secondary">
             共 {filteredArticles.length} 篇文章
@@ -121,27 +152,41 @@ const Articles = () => {
               fullWidth
               InputProps={{
                 startAdornment: (
-                  <InputAdornment position="start" sx={{ mr: 1 }}>
-                    <Box
+                  <InputAdornment position="start" sx={{ mr: 0.5 }}>
+                    <IconButton
+                      size="small"
                       sx={{
-                        width: 40,
-                        height: 40,
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        borderRadius: '50%',
+                        width: { xs: 36, sm: 40 },
+                        height: { xs: 36, sm: 40 },
                         background: 'rgba(25,118,210,0.06)',
                         color: 'primary.main',
-                        mr: 0.5,
+                        '&:hover': {
+                          background: 'rgba(25,118,210,0.12)',
+                        },
                       }}
                     >
                       <SearchIcon fontSize="small" />
-                    </Box>
+                    </IconButton>
                   </InputAdornment>
                 ),
-                endAdornment: searchQuery && (
-                  <InputAdornment position="end">
-                    <IconButton size="small" onClick={handleClearSearch} edge="end" sx={{ borderRadius: '50%', overflow: 'hidden', position: 'relative' }}>
+                endAdornment: (
+                  <InputAdornment position="end" sx={{ ml: 0.5 }}>
+                    <IconButton
+                      size="small"
+                      onClick={handleClearSearch}
+                      disabled={!searchQuery}
+                      sx={{
+                        width: { xs: 32, sm: 36 },
+                        height: { xs: 32, sm: 36 },
+                        visibility: searchQuery ? 'visible' : 'hidden',
+                        opacity: searchQuery ? 1 : 0,
+                        transition: 'all 200ms ease',
+                        color: 'text.secondary',
+                        '&:hover': {
+                          background: 'rgba(0,0,0,0.04)',
+                        },
+                      }}
+                    >
                       <ClearIcon fontSize="small" />
                     </IconButton>
                   </InputAdornment>
@@ -150,13 +195,18 @@ const Articles = () => {
               sx={{
                 '& .MuiOutlinedInput-root': {
                   borderRadius: 999,
-                  paddingRight: 0,
+                  paddingRight: 1,
                   backgroundColor: 'background.paper',
                   transition: 'box-shadow 200ms ease, transform 200ms ease',
+                  height: { xs: 48, sm: 'auto' },
                 },
                 '& .MuiOutlinedInput-root.Mui-focused': {
                   boxShadow: '0 8px 30px rgba(13,71,161,0.08)',
                   transform: 'translateY(-2px)',
+                },
+                '& .MuiInputBase-input': {
+                  fontSize: { xs: '1rem', sm: '0.875rem' },
+                  py: { xs: 1.5, sm: 1 },
                 },
               }}
             />
@@ -200,12 +250,12 @@ const Articles = () => {
 
         {/* Articles Grid/List */}
         <Grid container spacing={{ xs: 2, md: 2 }}>
-          {filteredArticles.map((article, index) => (
+          {paginatedArticles.map((article, index) => (
             <Grow in={mounted} timeout={300 + index * 100} key={article.id}>
               <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                 <Card
                   component={Link}
-                  to={`/articles/${article.id}`}
+                  to={`/posts/${article.id}`}
                   sx={{
                     textDecoration: 'none',
                     display: 'flex',
@@ -272,9 +322,17 @@ const Articles = () => {
         )}
 
         {/* Pagination */}
-        {filteredArticles.length > 0 && (
+        {totalPages > 1 && (
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: { xs: 4, md: 6 } }}>
-            <Pagination count={1} page={page} onChange={(_e, value) => setPage(value)} color="primary" size={isMobile ? 'small' : 'medium'} />
+            <Pagination
+              count={totalPages}
+              page={page}
+              onChange={handlePageChange}
+              color="primary"
+              size={isMobile ? 'small' : 'medium'}
+              showFirstButton
+              showLastButton
+            />
           </Box>
         )}
       </Container>
