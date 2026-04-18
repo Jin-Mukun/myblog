@@ -1,12 +1,14 @@
 # Jiwac's Blog
 
+[![React](https://img.shields.io/badge/React-18.3.1-61DAFB?logo=react&logoColor=white)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.6.2-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-6.0.1-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![MUI](https://img.shields.io/badge/MUI-7.3.8-007FFF?logo=mui&logoColor=white)](https://mui.com/)
+[![React Router](https://img.shields.io/badge/React_Router-7.13.0-CA4245?logo=react-router&logoColor=white)](https://reactrouter.com/)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.34.3-0055FF?logo=framer&logoColor=white)](https://www.framer.com/motion/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 一个基于 React + TypeScript 构建的简洁优雅的个人博客网站。
-
-## 在线访问
-
-[https://dev.dpdns.org](https://dev.dpdns.org)
-
-[https://jmk.gv.uy](https://jmk.gv.uyg)
 
 ## 技术栈
 
@@ -49,7 +51,7 @@ npm install
 npm run dev
 ```
 
-开发服务器将在 http://localhost:5173 启动
+开发服务器将在 <http://localhost:5173> 启动
 
 ### 构建生产版本
 
@@ -117,7 +119,7 @@ touch public/posts/my-first-post.md
 
 使用标准 Markdown 语法编写文章内容，支持代码块高亮：
 
-```markdown
+````markdown
 # 文章标题
 
 ## 引言
@@ -136,17 +138,18 @@ touch public/posts/my-first-post.md
 function hello() {
   console.log('Hello World');
 }
-```
+````
 
 ## 结语
 
 文章结尾...
 
----
+***
 
 *作者名*
 *日期*
-```
+
+````
 
 ### 第三步：注册文章元数据
 
@@ -169,7 +172,7 @@ export const articles: Article[] = [
     },
   },
 ];
-```
+````
 
 ### 第四步：验证文章
 
