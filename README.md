@@ -165,12 +165,8 @@ export const articles: Article[] = [
     image: 'https://example.com/image.jpg',  // 封面图片 URL
     category: '技术',               // 文章分类
     date: '2026-03-20',            // 发布日期，格式：YYYY-MM-DD
-    author: {
-      name: 'Jiwac',               // 作者名称
-      avatar: '/images/jinmukun-avatar.jpg',  // 作者头像路径
-      bio: '业余开发爱好者 | F1爱好者',        // 作者简介
+    author: defaultAuthor,          // 作者信息
     },
-  },
 ];
 ````
 
