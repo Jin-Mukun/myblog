@@ -20,12 +20,14 @@ import {
   Menu as MenuIcon,
   Home as HomeIcon,
   Article as ArticleIcon,
+  People as PeopleIcon,
 } from '@mui/icons-material';
 import { Link, useLocation } from 'react-router-dom';
 
 const navItems = [
   { label: '首页', path: '/', icon: HomeIcon },
   { label: '搜索', path: '/posts', icon: ArticleIcon },
+  { label: '友链', path: '/friends', icon: PeopleIcon },
 ];
 
 const Header = () => {

@@ -12,6 +12,7 @@ import './App.css';
 const Home = lazy(() => import('./pages/Home'));
 const Articles = lazy(() => import('./pages/Articles'));
 const ArticleDetail = lazy(() => import('./pages/ArticleDetail'));
+const Friends = lazy(() => import('./pages/Friends'));
 // Categories and About pages removed
 
 // 加载状态组件
@@ -87,6 +88,14 @@ const AnimatedRoutes = () => {
           element={
             <PageTransition>
               <ArticleDetail />
+            </PageTransition>
+          } 
+        />
+        <Route 
+          path="/friends" 
+          element={
+            <PageTransition>
+              <Friends />
             </PageTransition>
           } 
         />
