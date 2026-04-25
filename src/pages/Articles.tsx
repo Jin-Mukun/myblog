@@ -270,12 +270,19 @@ const Articles = () => {
                   }}
                 >
                     {article.cover && (
-                      <CardMedia
-                        component="img"
-                        image={article.cover}
-                        alt={article.title}
-                        sx={{ height: { xs: 140, md: 160 }, objectFit: 'cover' }}
-                      />
+                      <Box sx={{ position: 'relative', bgcolor: 'grey.100' }}>
+                        <CardMedia
+                          component="img"
+                          image={article.cover}
+                          alt={article.title}
+                          loading={index < 3 ? 'eager' : 'lazy'}
+                          sx={{
+                            height: { xs: 140, md: 160 },
+                            objectFit: 'cover',
+                            display: 'block',
+                          }}
+                        />
+                      </Box>
                     )}
                   <CardContent sx={{ flexGrow: 1, p: { xs: 1.5, md: 2 } }}>
                     <Chip

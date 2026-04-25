@@ -160,6 +160,20 @@ const ArticleDetail = () => {
               fontSize: { xs: '0.8125rem', md: '0.875rem' },
             },
           },
+          '& blockquote': {
+            borderLeft: '4px solid',
+            borderColor: 'primary.main',
+            pl: { xs: 2, md: 3 },
+            py: 1,
+            my: { xs: 2, md: 3 },
+            backgroundColor: 'rgba(0,0,0,0.02)',
+            borderRadius: '0 8px 8px 0',
+            '& p': {
+              mb: 0,
+              color: 'text.secondary',
+              fontStyle: 'italic',
+            },
+          },
         }}
       >
         {loading ? (

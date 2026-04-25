@@ -35,6 +35,15 @@ export const articles: Article[] = [
     date: '2026-03-14',
     author: defaultAuthor,
   },
+  {
+    id: 'greedy-math-problems',
+    title: '什么，用贪心做初中数学？',
+    excerpt: '我自己也没想到最后居然真的凑出来了',
+    cover: 'https://256.dpdns.org/file/images/1777105104178_my-cpp-solution.webp.webp',
+    category: '其他',
+    date: '2026-04-25',
+    author: defaultAuthor,
+  },
 ];
 
 // 获取所有分类

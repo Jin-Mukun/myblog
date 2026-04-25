@@ -30,10 +30,13 @@ const Home = () => {
   const [page, setPage] = useState(1);
   const [mounted, setMounted] = useState(false);
 
-  // 分页数据
+  // 分页数据（按日期降序排序）
   const paginatedArticles = useMemo(() => {
+    const sortedArticles = [...articles].sort((a, b) => {
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
     const startIndex = (page - 1) * ARTICLES_PER_PAGE;
-    return articles.slice(startIndex, startIndex + ARTICLES_PER_PAGE);
+    return sortedArticles.slice(startIndex, startIndex + ARTICLES_PER_PAGE);
   }, [page]);
 
   // 总页数
@@ -212,12 +215,19 @@ const Home = () => {
                     }}
                   >
                       {article.cover && (
-                        <CardMedia
-                          component="img"
-                          image={article.cover}
-                          alt={article.title}
-                          sx={{ height: { xs: 140, md: 160 }, objectFit: 'cover' }}
-                        />
+                        <Box sx={{ position: 'relative', bgcolor: 'grey.100' }}>
+                          <CardMedia
+                            component="img"
+                            image={article.cover}
+                            alt={article.title}
+                            loading={index < 3 ? 'eager' : 'lazy'}
+                            sx={{
+                              height: { xs: 140, md: 160 },
+                              objectFit: 'cover',
+                              display: 'block',
+                            }}
+                          />
+                        </Box>
                       )}
                     <CardContent sx={{ flexGrow: 1, p: { xs: 1.5, md: 2 } }}>
                       <Chip
