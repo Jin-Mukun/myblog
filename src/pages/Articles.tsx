@@ -276,6 +276,9 @@ const Articles = () => {
                           image={article.cover}
                           alt={article.title}
                           loading={index < 3 ? 'eager' : 'lazy'}
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).style.display = 'none';
+                          }}
                           sx={{
                             height: { xs: 140, md: 160 },
                             objectFit: 'cover',
