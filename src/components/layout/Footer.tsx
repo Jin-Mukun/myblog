@@ -100,6 +100,9 @@ const Footer = () => {
           <Typography variant="caption" color="text.secondary">
             © {currentYear} Jiwac's Blog。保留所有权利。
           </Typography>
+          <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
+            感谢 GV.UY 项目的支持
+          </Typography>
         </Box>
       </Container>
     </Box>
