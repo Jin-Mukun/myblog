@@ -18,6 +18,7 @@ import {
 import { Link, useParams } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
+import Giscus from '@giscus/react';
 import { getArticleById, loadArticleContent } from '../data/articles';
 import 'highlight.js/styles/github-dark.css';
 
@@ -186,6 +187,25 @@ const ArticleDetail = () => {
           </ReactMarkdown>
         )}
       </Paper>
+
+      {/* Comments */}
+      <Box sx={{ mt: { xs: 3, md: 4 } }}>
+        <Giscus
+          id="comments"
+          repo="mukunjin/myblog"
+          repoId="R_kgDORm2Z6w"
+          category="Comments"
+          categoryId="DIC_kwDORm2Z684C8LWO"
+          mapping="pathname"
+          strict="1"
+          reactionsEnabled="1"
+          emitMetadata="0"
+          inputPosition="top"
+          theme="light"
+          lang="zh-CN"
+          loading="lazy"
+        />
+      </Box>
     </Container>
   );
 };
