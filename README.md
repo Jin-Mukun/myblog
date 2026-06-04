@@ -148,9 +148,10 @@ npm run preview
 ```
 
 构建产物位于 `dist/` 目录，可部署至：
-- Cloudflare Pages
-- Vercel
-- Netlify
+- [![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/mukunjin/myblog)
+- [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/mukunjin/myblog)
+- [![使用 EdgeOne Pages 部署](https://cdnstatic.tencentcs.com/edgeone/pages/deploy.svg)](https://edgeone.ai/pages/new?repository-url=https://github.com/mukunjin/myblog)
+- [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/mukunjin/myblog)
 - GitHub Pages
 
 ## 性能优化
